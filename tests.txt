@@ -1,0 +1,120 @@
+//TEST ULTRASONIC LANG
+// #include <Arduino.h>  // Include the Arduino library
+
+// #define trigPin 4    // Trigger pin for ultrasonic sensor
+// #define echoPin 6    // Echo pin for ultrasonic sensor
+
+// // Function declaration
+// long getDistance();
+
+// void setup() {
+//   pinMode(trigPin, OUTPUT);  // Set the trigger pin as output
+//   pinMode(echoPin, INPUT);   // Set the echo pin as input
+//   Serial.begin(9600);        // Start serial communication at 9600 baud rate
+// }
+
+// void loop() {
+//   long distance = getDistance();  // Get the distance from the sensor
+
+//   Serial.print("Distance: ");
+//   Serial.print(distance);   // Print the distance in cm
+//   Serial.println(" cm");
+
+//   delay(500);  // Wait for half a second before the next reading
+// }
+
+// // Function to get the distance from the ultrasonic sensor
+// long getDistance() {
+//   digitalWrite(trigPin, LOW);  // Clear the trigger pin
+//   delayMicroseconds(2);        // Wait for a short time
+
+//   digitalWrite(trigPin, HIGH); // Send the trigger pulse
+//   delayMicroseconds(10);       // 10-microsecond pulse
+//   digitalWrite(trigPin, LOW);  // Stop sending the trigger pulse
+
+//   long duration = pulseIn(echoPin, HIGH);  // Measure the pulse duration
+
+//   // Calculate the distance in cm
+//   long distance = (duration / 2) / 29.1;
+
+//   // Return the calculated distance
+//   return distance;
+// }
+
+
+
+
+
+
+
+// TEST ULTRASONIC WITH SERVO
+// #include <Arduino.h>
+// #include <Servo.h>
+
+// #define trigPin 4    // Trigger pin for ultrasonic sensor
+// #define echoPin 6    // Echo pin for ultrasonic sensor
+// #define servoPin 5   // Servo pin
+
+// Servo myServo;  // Create a Servo object
+
+// // Function declaration
+// long getDistance();
+
+// void setup() {
+//   pinMode(trigPin, OUTPUT);  // Set the trigger pin as output
+//   pinMode(echoPin, INPUT);   // Set the echo pin as input
+//   myServo.attach(servoPin);  // Attach the servo to the pin
+//   Serial.begin(9600);        // Start serial communication at 9600 baud rate
+// }
+
+// void loop() {
+//   long distance = getDistance();  // Get the distance from the sensor
+
+//   Serial.print("Distance: ");
+//   Serial.print(distance);   // Print the distance in cm
+//   Serial.println(" cm");
+
+//   if (distance < 30) {
+//     myServo.write(90);  // Move servo to 90 degrees
+//     Serial.println("Servo turned to 90 degrees");
+//   } else {
+//     myServo.write(0);   // Move servo to 0 degrees
+//     Serial.println("Servo turned to 0 degrees");
+//   }
+
+//   delay(500);  // Wait for half a second before the next reading
+// }
+
+// // Function to get the distance from the ultrasonic sensor
+// long getDistance() {
+//   digitalWrite(trigPin, LOW);  // Clear the trigger pin
+//   delayMicroseconds(2);        // Wait for a short time
+
+//   digitalWrite(trigPin, HIGH); // Send the trigger pulse
+//   delayMicroseconds(10);       // 10-microsecond pulse
+//   digitalWrite(trigPin, LOW);  // Stop sending the trigger pulse
+
+//   long duration = pulseIn(echoPin, HIGH);  // Measure the pulse duration
+
+//   // Calculate the distance in cm
+//   long distance = (duration / 2) / 29.1;
+
+//   // Return the calculated distance
+//   return distance;
+// }
+
+//TURN SERVO TO 90 DEGREES ANGLE
+// #include <Arduino.h>
+// #include <Servo.h>
+
+// Servo myServo;  // Create a Servo object
+// int servoPin = 5;  // Servo is connected to pin 5
+
+// void setup() {
+//   myServo.attach(servoPin);  // Attach the servo to pin 5
+//   myServo.write(90);  // Move the servo to the 90-degree position
+// }
+
+// void loop() {
+//   // No need for code in loop as we only need to set the position once
+// }

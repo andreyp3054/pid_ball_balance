@@ -1,0 +1,169 @@
+
+//ORIG
+// //PID CONTROLLER 
+// /* PID controller system with Arduino.
+//  * https://srituhobby.com
+//  */
+// #include <Arduino.h>
+// #include <Servo.h>
+// Servo servo;
+
+// #define trig 4    // Updated trigger pin to 4
+// #define echo 6    // Updated echo pin to 6
+
+// #define kp 0
+// #define ki 0
+// #define kd 0
+
+// double priError = 0;
+// double toError = 0;
+
+// void setup() {
+//   pinMode(trig, OUTPUT);
+//   pinMode(echo, INPUT);
+//   servo.attach(5);   // Servo is connected to pin 5
+//   Serial.begin(9600);
+//   servo.write(50);    // Initialize the servo to 50 degrees
+// }
+
+// void loop() {
+//   PID();
+//   //  int a = distance();
+//   //  Serial.println(a);
+// }
+
+// long distance () {
+//   digitalWrite(trig, LOW);           // Clear the trigger pin
+//   delayMicroseconds(4);              // Wait for a short time
+//   digitalWrite(trig, HIGH);          // Send a pulse
+//   delayMicroseconds(10);             // Pulse length
+//   digitalWrite(trig, LOW);           // Stop sending the pulse
+
+//   long t = pulseIn(echo, HIGH);      // Measure the pulse width on echo pin
+//   long cm = t / 29 / 2;              // Calculate the distance in cm
+//   return cm;
+// }
+
+// void PID() {
+//   int dis = distance();  // Get the distance from the sensor
+
+//   int setP = 15;         // Setpoint, desired distance in cm
+//   double error = setP - dis;
+
+//   double Pvalue = error * kp;
+//   double Ivalue = toError * ki;
+//   double Dvalue = (error - priError) * kd;
+
+//   double PIDvalue = Pvalue + Ivalue + Dvalue;
+//   priError = error;
+//   toError += error;
+//   Serial.println(PIDvalue);
+//   int Fvalue = (int)PIDvalue;
+
+//   // Map PID value to the servo range (0 to 135 degrees)
+//   Fvalue = map(Fvalue, -135, 135, 135, 0);
+
+//   // Limit the servo angle to valid range
+//   if (Fvalue < 0) {
+//     Fvalue = 0;
+//   }
+//   if (Fvalue > 135) {
+//     Fvalue = 135;
+//   }
+
+//   servo.write(Fvalue);  // Control the servo with the calculated value
+// }
+
+
+
+
+#include <Arduino.h>
+#include <Servo.h>
+
+#define trigPin 4    // Trigger pin for ultrasonic sensor
+#define echoPin 6    // Echo pin for ultrasonic sensor
+#define servoPin 5   // Servo pin
+
+Servo myServo;  // Create a Servo object
+
+// PID controller constants
+#define kp 15.0
+#define ki 0.02
+#define kd 20
+
+double priError = 0;
+double toError = 0;
+
+// Function declaration
+long getDistance();
+void PID(long distance);
+
+void setup() {
+  pinMode(trigPin, OUTPUT);  // Set the trigger pin as output
+  pinMode(echoPin, INPUT);   // Set the echo pin as input
+  myServo.attach(servoPin);  // Attach the servo to the pin
+  Serial.begin(9600);        // Start serial communication at 9600 baud rate
+}
+
+void loop() {
+  long distance = getDistance();  // Get the distance from the sensor
+
+  Serial.print("Distance: ");
+  Serial.print(distance);   // Print the distance in cm
+  Serial.print(" cm");
+
+  // Call PID function to control the servo position
+  PID(distance);
+
+  delay(20);  // Wait for half a second before the next reading
+}
+
+// Function to get the distance from the ultrasonic sensor
+long getDistance() {
+  digitalWrite(trigPin, LOW);  // Clear the trigger pin
+  delayMicroseconds(2);        // Wait for a short time
+
+  digitalWrite(trigPin, HIGH); // Send the trigger pulse
+  delayMicroseconds(10);       // 10-microsecond pulse
+  digitalWrite(trigPin, LOW);  // Stop sending the trigger pulse
+
+  long duration = pulseIn(echoPin, HIGH);  // Measure the pulse duration
+
+  // Calculate the distance in cm
+  long distance = (duration / 2) / 29.1;
+
+  // Return the calculated distance
+  return distance;
+}
+
+// PID control function
+void PID(long distance) {
+  int setPoint = 15;  // Desired distance in cm
+  double error = setPoint - distance;  // Calculate the error
+  double Pvalue = error * kp;          // Proportional term
+  double Ivalue = toError * ki;        // Integral term
+  double Dvalue = (error - priError) * kd;  // Derivative term
+
+  // Calculate the PID value
+  double PIDvalue = Pvalue + Ivalue + Dvalue;
+  priError = error;  // Store the previous error for derivative calculation
+  toError += error;  // Accumulate the error for integral calculation
+
+  // Print the PID values for debugging
+  Serial.print(" output: ");
+  Serial.print(PIDvalue);
+
+  // Map the PID value to the servo's range (0 to 180 degrees)
+  int servoPos = map(PIDvalue, -50, 50, 0, 180);
+
+  // Ensure the servo position is within the valid range
+  if (servoPos < 0) {
+    servoPos = 0;
+  }
+  if (servoPos > 180) {
+    servoPos = 180;
+  }
+  Serial.print(" servoPos: ");
+  Serial.println(servoPos);
+  myServo.write(servoPos);  // Move the servo to the calculated position
+}
