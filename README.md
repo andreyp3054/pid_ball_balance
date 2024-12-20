@@ -98,3 +98,7 @@ The servo motor then moves the platform to balance the ball.
 This dynamic feedback loop keeps the ball stable at the target position, continuously adjusting the platform based on real-time sensor readings and PID control.
 
 
+### **Pictures and Demo Video**
+https://drive.google.com/drive/folders/1925KvuQrJ3X_F-1sYw84v6eBoZrIwtb4
+
+
