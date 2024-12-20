@@ -1,19 +1,43 @@
-##Acebu-Pacaña Ball-Balancing Robot with integrated PID Controller
+# **Acebu-Pacaña Ball-Balancing Robot with Integrated PID Controller**
 
+---
 
+### **Materials Used**
+- **Ultrasonic Sensor**
+- **Micro Servo Motor**
+- **Breadboard**
+- **Arduino Uno R3**
+- **Ping Pong Ball**
+- **Sintra Board** (as the building platform)
 
-How it works: 
-1. Distance Measurement: The ultrasonic sensor continuously measures the distance between the ball and the sensor. The sensor sends a pulse, and by calculating the time it takes for the pulse to return, it determines the distance to the ball.
+---
 
-2. Target Distance: The system is set with a target distance, say 17 cm. This is the distance at which the robot aims to maintain the ball's position.
+### **How It Works**
 
-3. PID Control: A PID (Proportional-Integral-Derivative) controller is used to adjust the servo's position based on the measured distance. The error is calculated as the difference between the target distance (17 cm) and the actual distance measured by the ultrasonic sensor.
+1. **Distance Measurement**  
+   The ultrasonic sensor continuously measures the distance between the ball and the sensor. The sensor emits a pulse, and by calculating the time it takes for the pulse to return, it determines the distance to the ball.
 
-4. Servo Adjustment: The PID controller adjusts the servo motor's angle based on the error. If the distance is greater than 17 cm, the servo moves to tilt the robot and push the ball back; if the distance is smaller, the servo tilts the robot forward to adjust the position of the ball.
+2. **Target Distance**  
+   The system is set with a target distance, such as **17 cm**, which is the desired position to maintain the ball.
 
-5. Maintaining Balance: The servo continuously adjusts to maintain the ball at the desired 17 cm distance. The PID controller fine-tunes the servo's position, ensuring the robot compensates for any changes in the ball's position and maintains the balance.
+3. **PID Control**  
+   A **PID (Proportional-Integral-Derivative)** controller adjusts the servo motor's position based on the error, calculated as the difference between the target distance (**17 cm**) and the actual distance measured by the ultrasonic sensor.
 
-6. Stabilization: The process runs in a loop, continuously measuring the distance, adjusting the servo, and keeping the ball stable at the set distance.
+4. **Servo Adjustment**  
+   The PID controller moves the servo motor based on the error:  
+   - **If the distance is greater than 17 cm**, the servo tilts the platform to push the ball backward.  
+   - **If the distance is less than 17 cm**, the servo tilts the platform forward to adjust the ball's position.
 
+5. **Maintaining Balance**  
+   The servo continuously adjusts to maintain the ball at the desired **17 cm** distance. The PID controller ensures precise adjustments, compensating for deviations to keep the ball stable.
 
-![circuit_diagram](https://github.com/user-attachments/assets/059a2ed4-4d6d-4df2-9a4b-67c9986eaf9d)
+6. **Stabilization**  
+   This process runs in a continuous loop, constantly:  
+   - Measuring the distance.  
+   - Adjusting the servo position.  
+   - Ensuring the ball remains balanced at the set point.
+
+---
+
+### **Circuit Diagram**
+![Circuit Diagram](https://github.com/user-attachments/assets/059a2ed4-4d6d-4df2-9a4b-67c9986eaf9d)
